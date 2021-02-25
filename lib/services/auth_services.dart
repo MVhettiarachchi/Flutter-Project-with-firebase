@@ -1,7 +1,6 @@
 
 
 class AuthService {
-  // Stream<FirebaseUser> get user => _auth.onAuthStateChanged;
 
   static Future<bool> signUpUser(
       {String firstName, String lastName, String phone, String email, String password }) async {
