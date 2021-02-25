@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "843352596443",
+    "project_id": "dgmentor-mujer-e877c",
+    "storage_bucket": "dgmentor-mujer-e877c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843352596443:android:9494e48724fc77f22251fe",
+        "android_client_info": {
+          "package_name": "com.example.dgmentor_mujer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843352596443-p9ajr40hhuon1reepren9lu95tc2kcrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZsq-rxJPN-Gp_bt6Y5xL1kXmh7NmNgnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843352596443-p9ajr40hhuon1reepren9lu95tc2kcrt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843352596443:android:0f372662d397ecd92251fe",
+        "android_client_info": {
+          "package_name": "com.example.dgmentor_mujer_user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843352596443-p9ajr40hhuon1reepren9lu95tc2kcrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZsq-rxJPN-Gp_bt6Y5xL1kXmh7NmNgnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843352596443-p9ajr40hhuon1reepren9lu95tc2kcrt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
