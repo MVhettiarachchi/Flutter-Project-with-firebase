@@ -32,12 +32,13 @@ class _LoginScreenState extends State<LoginScreen> {
             await AuthService.login(email: _username, password: _password).then((value) {
               Navigator.pop(context);
               if (value) {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => HomeScreen(
-                              //isNewLogin: true,
-                            )));
+                // Navigator.pushReplacement(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (_) => HomeScreen()
+                //         ),
+                //         );
+               Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
               } else {
                 Scaffold.of(context).showSnackBar(
                   SnackBar(
@@ -98,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Container(
                       margin: EdgeInsets.only(top: height / 10),
                       height: height / 5,
-                      child: Image(image: AssetImage('assets/images/dg_mentor.png')),
+                     // child: Image(image: AssetImage('assets/images/dg_mentor.png')),
                     ),
                   ),
                 ),
@@ -126,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
-                                  color: Colors.blue,
+                                  color: Colors.yellow[700],
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -171,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
-                                  color: Colors.blue,
+                                  color: Colors.yellow[700],
                                 ),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
@@ -207,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 50.0,
                           width: 200.0,
                           child: RaisedButton(
-                            color: Colors.blue[900],
+                            color: Colors.yellow[700],
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
                             onPressed: () {
                               loginUser();
@@ -238,9 +239,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               Text(
-                                'Register.',
+                                'Create Account',
                                 style: TextStyle(
-                                  color: Colors.blue[900],
+                                  color: Colors.yellow[700],
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
                                 ),

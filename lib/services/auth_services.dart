@@ -1,4 +1,11 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dgmentor_mujer_user/model/user_model.dart';
+import 'package:dgmentor_mujer_user/util/constant.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
 
@@ -117,5 +124,4 @@ class AuthService {
       }
     }
     
-    class FirebaseAuth {
-}
+

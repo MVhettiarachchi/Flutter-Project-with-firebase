@@ -32,7 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void initState() {
-    print(_profileImage);
+    
     super.initState();
   }
 
@@ -134,23 +134,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: 50.0,
-                        backgroundImage: _profileImage == null
-                            ? AssetImage('assets/images/user_paceholder.png')
-                            : FileImage(_profileImage),
-                      ),
-                    ],
-                  ),
+                  
                   SizedBox(
                     height: 20,
                   ),
                   Text(
                     'Register',
                     style: TextStyle(
-                      color: Colors.blue[900],
+                      color: Colors.yellow[700],
                       fontSize: 36.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -179,7 +170,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.blue,
+                                    color: Colors.yellow[700],
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -223,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.blue,
+                                    color: Colors.yellow[700],
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -267,7 +258,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.blue,
+                                    color: Colors.yellow[700],
                                   ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
@@ -311,7 +302,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.blue,
+                                    color: Colors.yellow[700],
                                   ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
@@ -341,58 +332,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onChanged: (input) => _email = input.trim(),
                             ),
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.mail,
-                                  size: 20.0,
-                                ),
-                                labelText: "Confarm email",
-                                fillColor: Colors.grey,
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.red[200],
-                                    width: 2.0,
-                                  ),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.red[200],
-                                    width: 2.0,
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.black12,
-                                    width: 2.0,
-                                  ),
-                                ),
-                              ),
-                              validator: (input) {
-                                if (input.trim().isEmpty) {
-                                  return 'Please Enter a valied email';
-                                } else if (input.trim() != _email) {
-                                  return 'Email not matched';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              onChanged: (input) => _confirmEmail = input.trim(),
-                            ),
-                          ),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
+                          // Container(
+                          //   child: TextFormField(
+                          //     decoration: InputDecoration(
+                          //       prefixIcon: Icon(
+                          //         Icons.mail,
+                          //         size: 20.0,
+                          //       ),
+                          //       labelText: "Confarm email",
+                          //       fillColor: Colors.grey,
+                          //       focusedBorder: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(10.0),
+                          //         borderSide: BorderSide(
+                          //           color: Colors.blue,
+                          //         ),
+                          //       ),
+                          //       focusedErrorBorder: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(10.0),
+                          //         borderSide: BorderSide(
+                          //           color: Colors.red[200],
+                          //           width: 2.0,
+                          //         ),
+                          //       ),
+                          //       errorBorder: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(10.0),
+                          //         borderSide: BorderSide(
+                          //           color: Colors.red[200],
+                          //           width: 2.0,
+                          //         ),
+                          //       ),
+                          //       enabledBorder: OutlineInputBorder(
+                          //         borderRadius: BorderRadius.circular(10.0),
+                          //         borderSide: BorderSide(
+                          //           color: Colors.black12,
+                          //           width: 2.0,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     validator: (input) {
+                          //       if (input.trim().isEmpty) {
+                          //         return 'Please Enter a valied email';
+                          //       } else if (input.trim() != _email) {
+                          //         return 'Email not matched';
+                          //       } else {
+                          //         return null;
+                          //       }
+                          //     },
+                          //     onChanged: (input) => _confirmEmail = input.trim(),
+                          //   ),
+                          // ),
                           SizedBox(
                             height: 20,
                           ),
@@ -409,7 +400,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.blue,
+                                    color: Colors.yellow[700],
                                   ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
@@ -455,7 +446,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.blue,
+                                    color: Colors.yellow[700],
                                   ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
@@ -500,7 +491,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: 50.0,
                             width: 200.0,
                             child: RaisedButton(
-                              color: Colors.green,
+                              color: Colors.yellow[700],
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
                               onPressed: () {
                                 loginUser();
@@ -533,7 +524,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Text(
                                   'Login.',
                                   style: TextStyle(
-                                    color: Colors.blue[900],
+                                    color: Colors.yellow[700],
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
