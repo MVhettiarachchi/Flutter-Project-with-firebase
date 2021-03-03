@@ -1,4 +1,4 @@
-
+ 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dgmentor_mujer_user/model/user_model.dart';
 import 'package:dgmentor_mujer_user/util/constant.dart';
@@ -10,7 +10,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 class AuthService {
 
   static Future<bool> signUpUser(
-      {String firstName, String lastName, String phone, String email, String password }) async {
+      {String firstName, String lastName, String phone, String email, String password, String address }) async {
     final _firestore = FirebaseFirestore.instance;
     final _auth = FirebaseAuth.instance;
     try {
@@ -24,20 +24,19 @@ class AuthService {
       User signedUser = authResult.user;
      
       FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-      String fcmToken = await _firebaseMessaging.getToken();
+     // String fcmToken = await _firebaseMessaging.getToken();
   
 
       if (signedUser != null) {
         try {
           _firestore.collection('users').doc(signedUser.uid).set({
-            'userId': signedUser.uid,
+            'id': signedUser.uid,
             'first_name': firstName,
             'last_name': lastName,
             'email': email,
             'phone': phone,
             'address': address,
-            'fcm_token': fcmToken,
-            'last_login_time': DateTime.now(),
+           
           });
           UserModel userModel = await getUserById(signedUser.uid);
           if (userModel != null) {
@@ -62,8 +61,9 @@ class AuthService {
       UserCredential authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
 
       if (authResult != null) {
-        await setFcmToken(authResult.user.uid);
+        //await setFcmToken(authResult.user.uid);
         UserModel userModel = await getUserById(authResult.user.uid);
+        print(userModel);
         if (userModel != null) {
           Constants.user = userModel;
           return true;
@@ -72,14 +72,14 @@ class AuthService {
         }
       }
       return false;
-    } on FirebaseAuthException catch (err) {
-      print('Login error  0000 $err');
-      throw (err);
+    } on FirebaseAuthException catch (error) {
+      print('Login error $error');
+      throw (error);
     }
   }
 
   static signOut() {
-    resetFcmToken(Constants.user.id);
+   // resetFcmToken(Constants.user.id);
     final _auth = FirebaseAuth.instance;
         _auth.signOut();
       }
@@ -97,31 +97,8 @@ class AuthService {
         }
       }
     
-      static Future<UserModel> setFcmToken(String userid) async {
-        try {
-          FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-          String fcmToken = await _firebaseMessaging.getToken();
-          final _firestore = FirebaseFirestore.instance;
-          await _firestore.collection('users').doc(Constants.user.id).update({
-            'fcm_token': fcmToken,
-          });
-        } catch (e) {
-          print('AuthService > setFcmToken $e');
-          return null;
-        }
-      }
-    
-      static Future<UserModel> resetFcmToken(String userid) async {
-        try {
-          final _firestore = FirebaseFirestore.instance;
-          await _firestore.collection('users').doc(Constants.user.id).update({
-            'fcm_token': null,
-          });
-        } catch (e) {
-          print('AuthService > resetFcmToken $e');
-          return null;
-        }
-      }
+
     }
     
+
 

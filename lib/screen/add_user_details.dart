@@ -1,8 +1,7 @@
 import 'package:dgmentor_mujer_user/model/contact_model.dart';
 import 'package:dgmentor_mujer_user/services/firebase_services.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dgmentor_mujer_user/model/user_model.dart';
+
 
 class AddUserDetailsScreen extends StatefulWidget {
   @override
@@ -88,10 +87,10 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                  validator: (input) => input.trim().isEmpty
-                      ? 'Please Enter a valied name'
-                      : null,
-                  onSaved: (input) => _firstName = input.trim(),
+                  // validator: (input) => input.trim().isEmpty
+                  //     ? 'Please Enter a valied name'
+                  //     : null,
+                  // onSaved: (input) => _firstName = input.trim(),
                 ),
               ),
               SizedBox(
@@ -135,10 +134,10 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                  validator: (input) => input.trim().isEmpty
-                      ? 'Please Enter a valied name'
-                      : null,
-                  onSaved: (input) => _lastName = input.trim(),
+                  // validator: (input) => input.trim().isEmpty
+                  //     ? 'Please Enter a valied name'
+                  //     : null,
+                  // onSaved: (input) => _lastName = input.trim(),
                 ),
               ),
               SizedBox(
@@ -299,7 +298,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
       //       ListTile(
       //         title: Text('Item 2'),
       //         onTap: () {
-      //           // Update the state of the app
+      //           // Update the state of the app 
       //           // ...
       //           // Then close the drawer
       //           Navigator.pop(context);

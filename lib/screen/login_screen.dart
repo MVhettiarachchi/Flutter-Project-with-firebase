@@ -1,3 +1,4 @@
+import 'package:dgmentor_mujer_user/screen/add_user_main_page.dart';
 import 'package:dgmentor_mujer_user/screen/home_screen.dart';
 import 'package:dgmentor_mujer_user/screen/register_screen.dart';
 import 'package:dgmentor_mujer_user/services/auth_services.dart';
@@ -12,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+
   String _username = '';
   String _password = '';
 
@@ -20,52 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
-  Future<void> loginUser() async {
-   
-      if (_formKey.currentState.validate()) {
-        _formKey.currentState.save();
 
-        try {
-          if (_formKey.currentState.validate()) {
-            _showDailogLoadin('Loging');
-            _formKey.currentState.save();
-            await AuthService.login(email: _username, password: _password).then((value) {
-              Navigator.pop(context);
-              if (value) {
-                // Navigator.pushReplacement(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (_) => HomeScreen()
-                //         ),
-                //         );
-               Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-              } else {
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Somethig wen wrong. Please try again.'),
-                  ),
-                );
-              }
-            });
-          }
-        } catch (error) {
-          Navigator.pop(context);
-      
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text(error.message),
-            ),
-          );
-        }
-      }
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('No Internet'),
-  //       ),
-  //     );
-  //   }
-  }
 
   _showDailogLoadin(String message) {
     showDialog(
@@ -75,7 +32,10 @@ class _LoginScreenState extends State<LoginScreen> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text(message),
-          content: Container(width: 150.0, height: 80.0, child: Center(child: CircularProgressIndicator())),
+          content: Container(
+              width: 150.0,
+              height: 80.0,
+              child: Center(child: CircularProgressIndicator())),
         );
       },
     );
@@ -99,14 +59,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Container(
                       margin: EdgeInsets.only(top: height / 10),
                       height: height / 5,
-                     // child: Image(image: AssetImage('assets/images/dg_mentor.png')),
+                      
                     ),
                   ),
                 ),
                 Container(
                   height: height * 6 / 10,
                   margin: EdgeInsets.symmetric(horizontal: 30.0),
-                  // color: Colors.blue,
+                
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -152,7 +112,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            validator: (input) => input.trim().isEmpty ? 'Please Enter a valied user name' : null,
+                            validator: (input) => input.trim().isEmpty
+                                ? 'Please Enter a valied user name'
+                                : null,
                             onSaved: (input) => _username = input.trim(),
                           ),
                         ),
@@ -197,7 +159,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            validator: (input) => input.trim().isEmpty ? 'Please Enter a valied password' : null,
+                            validator: (input) => input.trim().isEmpty
+                                ? 'Please Enter a valied password'
+                                : null,
                             onSaved: (input) => _password = input.trim(),
                           ),
                         ),
@@ -209,9 +173,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 200.0,
                           child: RaisedButton(
                             color: Colors.yellow[700],
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-                            onPressed: () {
-                              loginUser();
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0)),
+                            onPressed: () async {
+                              _formKey.currentState.save();
+                              try {
+                                final user = AuthService.login(
+                                    email: _username, password: _password);
+                                if (user != null) {
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (_) => HomeScreen()));
+
+                                           Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserScreen()));
+                                }
+                              } catch (e) {
+                                print(e);
+                              }
                             },
                             child: Text(
                               'Login',
@@ -249,7 +228,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => RegisterScreen()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => RegisterScreen()));
                           },
                         ),
                       ],

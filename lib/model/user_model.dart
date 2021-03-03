@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
@@ -8,8 +7,7 @@ class UserModel {
   final String phone;
   final String email;
   final String address;
-  final String groupId;
-   final String userRole;
+ 
    
   UserModel({
      this.id,
@@ -18,8 +16,7 @@ class UserModel {
     this.phone,
     this.email,
     this.address,
-    this.groupId,
-    this.userRole,
+   
   });
 
   factory UserModel.fromDoc(DocumentSnapshot doc) {
@@ -30,8 +27,7 @@ class UserModel {
       phone: doc['phone'],
       email: doc['email'],
       address: doc['address'],
-      groupId: doc['user_group_id'],
-      userRole: doc['user_role'],
+     
     );
   }
 
@@ -42,8 +38,7 @@ class UserModel {
     String phone,
     String email,
     String address,
-    String groupId,
-    String userRole,
+  
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -52,9 +47,7 @@ class UserModel {
       phone: phone ?? this.phone,
       email: email ?? this.email,
       address: address ?? this.address,
-      groupId: groupId ?? this.groupId,
-      userRole: userRole ?? this.userRole,
-    
+     
     );
   }
 }

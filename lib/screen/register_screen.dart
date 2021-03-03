@@ -17,11 +17,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String _firstName = '';
   String _lastName = '';
   String _email = '';
-  String _confirmEmail = '';
   String _phone = '';
   String _password = '';
   String _confirmPassword = '';
-  File _profileImage;
+ 
   bool _isLoading = false;
 
   void pageMap() {
@@ -48,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               email: _email,
               password: _password,
               phone: _phone,
-              //imageFilePath: _profileImage?.path
+              
               )
           .then((value) {
         print(_firstName);
@@ -65,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         } else {
           Scaffold.of(context).showSnackBar(
             SnackBar(
-              content: Text('Somethig wen wrong. Please try again.'),
+              content: Text(' wrong. Please try again.'),
             ),
           );
         }
@@ -332,58 +331,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onChanged: (input) => _email = input.trim(),
                             ),
                           ),
-                          // SizedBox(
-                          //   height: 20,
-                          // ),
-                          // Container(
-                          //   child: TextFormField(
-                          //     decoration: InputDecoration(
-                          //       prefixIcon: Icon(
-                          //         Icons.mail,
-                          //         size: 20.0,
-                          //       ),
-                          //       labelText: "Confarm email",
-                          //       fillColor: Colors.grey,
-                          //       focusedBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //         borderSide: BorderSide(
-                          //           color: Colors.blue,
-                          //         ),
-                          //       ),
-                          //       focusedErrorBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //         borderSide: BorderSide(
-                          //           color: Colors.red[200],
-                          //           width: 2.0,
-                          //         ),
-                          //       ),
-                          //       errorBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //         borderSide: BorderSide(
-                          //           color: Colors.red[200],
-                          //           width: 2.0,
-                          //         ),
-                          //       ),
-                          //       enabledBorder: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //         borderSide: BorderSide(
-                          //           color: Colors.black12,
-                          //           width: 2.0,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     validator: (input) {
-                          //       if (input.trim().isEmpty) {
-                          //         return 'Please Enter a valied email';
-                          //       } else if (input.trim() != _email) {
-                          //         return 'Email not matched';
-                          //       } else {
-                          //         return null;
-                          //       }
-                          //     },
-                          //     onChanged: (input) => _confirmEmail = input.trim(),
-                          //   ),
-                          // ),
+                        
                           SizedBox(
                             height: 20,
                           ),

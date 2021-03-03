@@ -113,38 +113,38 @@ class _AddUserScreenState extends State<AddUserScreen> {
           ),
         )),
         
-         drawer: Drawer(
+      //    drawer: Drawer(
         
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.yellow[700],
+      //   child: ListView(
+      //     // Important: Remove any padding from the ListView.
+      //     padding: EdgeInsets.zero,
+      //     children: <Widget>[
+      //       DrawerHeader(
+      //         child: Text('Drawer Header'),
+      //         decoration: BoxDecoration(
+      //           color: Colors.yellow[700],
                 
-              ),
-            ),
-            ListTile(
-              title: Text('Contacts'),
-              onTap: () {
-               Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserScreen()));
-               // Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
+      //         ),
+      //       ),
+      //       ListTile(
+      //         title: Text('Contacts'),
+      //         onTap: () {
+      //          Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserScreen()));
+      //          // Navigator.pop(context);
+      //         },
+      //       ),
+      //       ListTile(
+      //         title: Text('Item 2'),
+      //         onTap: () {
+      //           // Update the state of the app
+      //           // ...
+      //           // Then close the drawer
+      //           Navigator.pop(context);
+      //         },
+      //       ),
+      //     ],
+      //   ),
+      // ),
         );
 
   }
