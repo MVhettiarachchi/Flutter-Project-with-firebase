@@ -14,9 +14,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  String _username = '';
+  String _email = '';
   String _password = '';
-
+  String error= '';
   @override
   void initState() {
     super.initState();
@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             validator: (input) => input.trim().isEmpty
                                 ? 'Please Enter a valied user name'
                                 : null,
-                            onSaved: (input) => _username = input.trim(),
+                            onSaved: (input) => _email = input.trim(),
                           ),
                         ),
                         SizedBox(
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               labelText: "Password",
                               fillColor: Colors.grey,
                               focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
+                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
                                   color: Colors.yellow[700],
                                 ),
@@ -162,7 +162,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             validator: (input) => input.trim().isEmpty
                                 ? 'Please Enter a valied password'
                                 : null,
-                            onSaved: (input) => _password = input.trim(),
+                           //onSaved: (input) => _password = input.trim(),
+
+                         onSaved: (String val) {_email = val; },
+      // onFieldSubmitted: (password) async {
+      //   await onClick(_email.toString(), _password.toString());
+      // },
                           ),
                         ),
                         SizedBox(
@@ -176,21 +181,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0)),
                             onPressed: () async {
-                              _formKey.currentState.save();
+                           if(_formKey.currentState.validate()){
                               try {
                                 final user = AuthService.login(
-                                    email: _username, password: _password);
+                                    email: _email, password: _password);
                                 if (user != null) {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (_) => HomeScreen()));
-
+                                  
                                            Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserScreen()));
+                                }
+                                else{
+                                  setState(() => error = 'Could not SIGN IN with those credential');
                                 }
                               } catch (e) {
                                 print(e);
                               }
+                            }
                             },
                             child: Text(
                               'Login',

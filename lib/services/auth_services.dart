@@ -2,27 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dgmentor_mujer_user/model/user_model.dart';
 import 'package:dgmentor_mujer_user/util/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
+  // ignore: missing_return
   static Future<bool> signUpUser(
-      {String firstName, String lastName, String phone, String email, String password, String address}) async {
+      {String firstName,
+      String lastName,
+      String phone,
+      String email,
+      String password}) async {
     final _firestore = FirebaseFirestore.instance;
     final _auth = FirebaseAuth.instance;
     try {
-      String address = '';
-
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       User signedUser = authResult.user;
-
-      FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-      // String fcmToken = await _firebaseMessaging.getToken();
 
       if (signedUser != null) {
         try {
@@ -32,7 +29,6 @@ class AuthService {
             'last_name': lastName,
             'email': email,
             'phone': phone,
-            'address': address,
           });
           UserModel userModel = await getUserById(signedUser.uid);
           if (userModel != null) {
@@ -52,11 +48,12 @@ class AuthService {
 
   static Future<bool> login({String email, String password}) async {
     final _auth = FirebaseAuth.instance;
-    try {
-      UserCredential authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
+   // try {
+      UserCredential authResult = await _auth.signInWithEmailAndPassword(
+          email: email, password: password).catchError((e) => print(e));
 
+  print(authResult);
       if (authResult != null) {
-        //await setFcmToken(authResult.user.uid);
         UserModel userModel = await getUserById(authResult.user.uid);
         print(userModel);
         if (userModel != null) {
@@ -67,10 +64,12 @@ class AuthService {
         }
       }
       return false;
-    } on FirebaseAuthException catch (error) {
-      print('Login error $error');
-      throw (error);
-    }
+    // } on FirebaseAuthException catch (error) {
+    //   print('Login error $error');
+    //   throw (error);
+ 
+
+    // }
   }
 
   static signOut() {
@@ -80,10 +79,12 @@ class AuthService {
   }
 
   static Future<UserModel> getUserById(String id) async {
+   
     try {
       print(id);
       final _firestore = FirebaseFirestore.instance;
-      DocumentSnapshot documentSnapshot = await _firestore.collection('users').doc(id).get();
+      DocumentSnapshot documentSnapshot =
+          await _firestore.collection('users').doc(id).get();
 
       return null;
     } catch (e) {

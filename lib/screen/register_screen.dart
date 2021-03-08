@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dgmentor_mujer_user/screen/home_screen.dart';
+import 'package:dgmentor_mujer_user/screen/login_screen.dart';
 import 'package:dgmentor_mujer_user/services/auth_services.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  
   final _formKey = GlobalKey<FormState>();
   String _firstName = '';
   String _lastName = '';
@@ -20,64 +20,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String _phone = '';
   String _password = '';
   String _confirmPassword = '';
- 
+  //String _address = '';
   bool _isLoading = false;
 
-  void pageMap() {
-    Future.delayed(const Duration(milliseconds: 3000), () {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-    });
-  }
-
+ 
   @override
   void initState() {
-    
     super.initState();
-  }
-
-  void loginUser() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      _showDailogLoadin('Logging');
-      _isLoading = true;
-
-      AuthService.signUpUser(
-              firstName: _firstName,
-              lastName: _lastName,
-              email: _email,
-              password: _password,
-              phone: _phone,
-              
-              )
-          .then((value) {
-        print(_firstName);
-        print(_password);
-        _isLoading = false;
-        Navigator.pop(context);
-        if (value) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => HomeScreen(
-                       // isNewLogin: true,
-                      )));
-        } else {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text(' wrong. Please try again.'),
-            ),
-          );
-        }
-      }).catchError((error) {
-        print(error);
-        Navigator.pop(context);
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text(error.message),
-          ),
-        );
-      });
-    }
   }
 
 
@@ -111,7 +60,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text(message),
-          content: Container(width: 150.0, height: 80.0, child: Center(child: CircularProgressIndicator())),
+          content: Container(
+              width: 150.0,
+              height: 80.0,
+              child: Center(child: CircularProgressIndicator())),
         );
       },
     );
@@ -133,7 +85,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  
                   SizedBox(
                     height: 20,
                   ),
@@ -194,7 +145,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied name' : null,
+                              validator: (input) => input.trim().isEmpty
+                                  ? 'Please Enter a valied name'
+                                  : null,
                               onSaved: (input) => _firstName = input.trim(),
                             ),
                           ),
@@ -238,7 +191,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied name' : null,
+                              validator: (input) => input.trim().isEmpty
+                                  ? 'Please Enter a valied name'
+                                  : null,
                               onSaved: (input) => _lastName = input.trim(),
                             ),
                           ),
@@ -282,7 +237,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied phone number' : null,
+                              validator: (input) => input.trim().isEmpty
+                                  ? 'Please Enter a valied phone number'
+                                  : null,
                               onSaved: (input) => _phone = input.trim(),
                             ),
                           ),
@@ -326,12 +283,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied email' : null,
+                              validator: (input) => input.trim().isEmpty
+                                  ? 'Please Enter a valied email'
+                                  : null,
                               onSaved: (input) => _email = input.trim(),
                               onChanged: (input) => _email = input.trim(),
                             ),
                           ),
-                        
                           SizedBox(
                             height: 20,
                           ),
@@ -373,7 +331,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied password' : null,
+                              validator: (input) => input.trim().isEmpty
+                                  ? 'Please Enter a valied password'
+                                  : null,
                               onSaved: (input) => _password = input.trim(),
                               onChanged: (input) => _password = input.trim(),
                             ),
@@ -428,8 +388,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   return null;
                                 }
                               },
-                              // onSaved: (input) => _confirmPassword = input.trim(),
-                              onChanged: (input) => _confirmPassword = input.trim(),
+                              onSaved: (input) =>
+                                  _confirmPassword = input.trim(),
+                              onChanged: (input) =>
+                                  _confirmPassword = input.trim(),
                             ),
                           ),
                           SizedBox(
@@ -440,9 +402,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             width: 200.0,
                             child: RaisedButton(
                               color: Colors.yellow[700],
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-                              onPressed: () {
-                                loginUser();
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0)),
+                              onPressed: () async {
+                                if (_formKey.currentState.validate()) {
+                                  _formKey.currentState.save();
+                                  _showDailogLoadin('Logging');
+                                  _isLoading = true;
+
+                                  AuthService.signUpUser(
+                                    firstName: _firstName,
+                                    lastName: _lastName,
+                                    email: _email,
+                                    password: _password,
+                                    phone: _phone,
+                                    //          address: _address,
+                                  ).then((value) {
+                                    _isLoading = false;
+                                    Navigator.pop(context);
+                                    if (value) {
+                                      Navigator.pushReplacement(
+                                          context,    
+                                          MaterialPageRoute(
+                                              builder: (_) => HomeScreen()));
+                                    }
+                                  });
+                                }
                               },
                               child: Text(
                                 'Register',
@@ -494,6 +479,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
-  
 }

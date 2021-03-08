@@ -6,7 +6,7 @@ class UserModel {
   final String lastName;
   final String phone;
   final String email;
-  final String address;
+  //final String address;
  
    
   UserModel({
@@ -15,7 +15,7 @@ class UserModel {
     this.lastName,
     this.phone,
     this.email,
-    this.address,
+    //this.address,
    
   });
 
@@ -26,7 +26,7 @@ class UserModel {
       lastName: doc['last_name'],
       phone: doc['phone'],
       email: doc['email'],
-      address: doc['address'],
+      //address: doc['address'],
      
     );
   }
@@ -37,7 +37,7 @@ class UserModel {
     String lastName,
     String phone,
     String email,
-    String address,
+    //String address,
   
   }) {
     return UserModel(
@@ -46,7 +46,7 @@ class UserModel {
       lastName: lastName ?? this.lastName,
       phone: phone ?? this.phone,
       email: email ?? this.email,
-      address: address ?? this.address,
+      //address: address ?? this.address,
      
     );
   }
