@@ -16,13 +16,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String _email = '';
   String _password = '';
-  String error= '';
+  String error = '';
   @override
   void initState() {
     super.initState();
   }
-
-
 
   _showDailogLoadin(String message) {
     showDialog(
@@ -59,14 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Container(
                       margin: EdgeInsets.only(top: height / 10),
                       height: height / 5,
-                      
                     ),
                   ),
                 ),
                 Container(
                   height: height * 6 / 10,
                   margin: EdgeInsets.symmetric(horizontal: 30.0),
-                
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -132,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               labelText: "Password",
                               fillColor: Colors.grey,
                               focusedBorder: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
                                   color: Colors.yellow[700],
                                 ),
@@ -162,12 +158,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             validator: (input) => input.trim().isEmpty
                                 ? 'Please Enter a valied password'
                                 : null,
-                           //onSaved: (input) => _password = input.trim(),
+                            //onSaved: (input) => _password = input.trim(),
 
-                         onSaved: (String val) {_email = val; },
-      // onFieldSubmitted: (password) async {
-      //   await onClick(_email.toString(), _password.toString());
-      // },
+                            onSaved: (input) => _password = input.trim(),
+                            // onFieldSubmitted: (password) async {
+                            //   await onClick(_email.toString(), _password.toString());
+                            // },
                           ),
                         ),
                         SizedBox(
@@ -181,21 +177,28 @@ class _LoginScreenState extends State<LoginScreen> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0)),
                             onPressed: () async {
-                           if(_formKey.currentState.validate()){
                               try {
-                                final user = AuthService.login(
-                                    email: _email, password: _password);
-                                if (user != null) {
-                                  
-                                           Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserScreen()));
-                                }
-                                else{
-                                  setState(() => error = 'Could not SIGN IN with those credential');
+                                if (_formKey.currentState.validate()) {
+                                  _formKey.currentState.save();
+                                  await AuthService.login(
+                                          context: context,
+                                          email: _email,
+                                          password: _password)
+                                      .then((value) {
+                                    if (value != null) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => AddUserScreen()));
+                                    } else {
+                                      setState(() => error =
+                                          'Could not SIGN IN with those credential');
+                                    }
+                                  });
                                 }
                               } catch (e) {
                                 print(e);
                               }
-                            }
                             },
                             child: Text(
                               'Login',

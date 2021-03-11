@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dgmentor_mujer_user/screen/add_user_main_page.dart';
 import 'package:dgmentor_mujer_user/screen/home_screen.dart';
 import 'package:dgmentor_mujer_user/screen/login_screen.dart';
 import 'package:dgmentor_mujer_user/services/auth_services.dart';
@@ -23,12 +24,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   //String _address = '';
   bool _isLoading = false;
 
- 
   @override
   void initState() {
     super.initState();
   }
-
 
   _showDailog(String message) {
     showDialog(
@@ -422,9 +421,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Navigator.pop(context);
                                     if (value) {
                                       Navigator.pushReplacement(
-                                          context,    
+                                          context,
                                           MaterialPageRoute(
-                                              builder: (_) => HomeScreen()));
+                                              builder: (_) => AddUserScreen()));
                                     }
                                   });
                                 }

@@ -2,7 +2,6 @@ import 'package:dgmentor_mujer_user/model/contact_model.dart';
 import 'package:dgmentor_mujer_user/services/firebase_services.dart';
 import 'package:flutter/material.dart';
 
-
 class AddUserDetailsScreen extends StatefulWidget {
   @override
   _AddUserDetailsScreenState createState() => _AddUserDetailsScreenState();
@@ -257,7 +256,10 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       );
                       FirebaseService.createRlativesDetails(
                           createdRelativesdetails);
-                      Navigator.pop(context, createdRelativesdetails);
+                      // Navigator.pop(context, createdRelativesdetails);
+                      _messageAddedDailog(createdRelativesdetails);
+                    } else {
+                      print('cant add...');
                     }
                   },
                   child: Text(
@@ -298,7 +300,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
       //       ListTile(
       //         title: Text('Item 2'),
       //         onTap: () {
-      //           // Update the state of the app 
+      //           // Update the state of the app
       //           // ...
       //           // Then close the drawer
       //           Navigator.pop(context);
@@ -307,6 +309,29 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
       //     ],
       //   ),
       // ),
+    );
+  }
+
+  _messageAddedDailog(ContactModel contactData) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Text("Successfully."),
+          content: Text('Successfully'),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            FlatButton(
+              child: Text("Ok"),
+              onPressed: () {
+                Navigator.of(context).pop(contactData);
+                Navigator.of(context).pop(contactData);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

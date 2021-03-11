@@ -1,7 +1,8 @@
 import 'package:dgmentor_mujer_user/screen/login_screen.dart';
+import 'package:dgmentor_mujer_user/screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:dgmentor_mujer_user/screen/home_screen.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -13,13 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'DgMentor Mujer',
       theme: ThemeData(
-        
         primarySwatch: Colors.yellow,
       ),
-    home: LoginScreen(),
-    //  home: HomeScreen(),
+      home: SpalshScreen(),
+      //  home: HomeScreen(),
     );
   }
 }
