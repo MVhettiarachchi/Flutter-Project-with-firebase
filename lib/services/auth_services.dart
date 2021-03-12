@@ -48,32 +48,7 @@ class AuthService {
     }
   }
 
-  // static Future<bool> login({String email, String password}) async {
-  //   final _auth = FirebaseAuth.instance;
-  //   // try {
-  //   UserCredential authResult = await _auth
-  //       .signInWithEmailAndPassword(email: email, password: password)
-  //       .catchError((e) => print(e));
-
-  //   print(authResult);
-  //   if (authResult != null) {
-  //     UserModel userModel = await getUserById(authResult.user.uid);
-  //     print(userModel);
-  //     if (userModel != null) {
-  //       Constants.user = userModel;
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   }
-  //   return false;
-  //   // } on FirebaseAuthException catch (error) {
-  //   //   print('Login error $error');
-  //   //   throw (error);
-
-  //   // }
-  // }
-
+ 
   static Future<bool> login(
       {BuildContext context, String email, String password}) async {
     final _auth = FirebaseAuth.instance;

@@ -403,10 +403,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               color: Colors.yellow[700],
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0)),
+                              //     try {
+                              //   if (_formKey.currentState.validate()) {
+                              //     _formKey.currentState.save();
+                              //     await AuthService.login(
+                              //             context: context,
+                              //             email: _email,
+                              //             password: _password)
+                              //         .then((value) {
+                              //       if (value != null) {
+                              //         Navigator.push(
+                              //             context,
+                              //             MaterialPageRoute(
+                              //                 builder: (_) => AddUserScreen()));
+                              //       } else {
+                              //         setState(() => error =
+                              //             'Could not SIGN IN with those credential');
+                              //       }
+                              //     });
+                              //   }
+                              // } catch (e) {
+                              //   print(e);
+                              // }
                               onPressed: () async {
+                               // try{}
                                 if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
-                                  _showDailogLoadin('Logging');
+                                  _showDailogLoadin('Enter the valid details');
                                   _isLoading = true;
 
                                   AuthService.signUpUser(
@@ -418,14 +441,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     //          address: _address,
                                   ).then((value) {
                                     _isLoading = false;
-                                    Navigator.pop(context);
-                                    if (value) {
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => AddUserScreen()));
+                                   // Navigator.pop(context);
+                                   // if (value) {
+                                       Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => AddUserScreen()));
                                     }
-                                  });
+                                  //}
+                                  );
                                 }
                               },
                               child: Text(
