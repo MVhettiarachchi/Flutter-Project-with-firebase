@@ -30,10 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text(message),
-          content: Container(
-              width: 150.0,
-              height: 80.0,
-              child: Center(child: CircularProgressIndicator())),
+          content: Container(width: 150.0, height: 80.0, child: Center(child: CircularProgressIndicator())),
         );
       },
     );
@@ -108,9 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            validator: (input) => input.trim().isEmpty
-                                ? 'Please Enter a valied user name'
-                                : null,
+                            validator: (input) => input.trim().isEmpty ? 'Please Enter a valied user name' : null,
                             onSaved: (input) => _email = input.trim(),
                           ),
                         ),
@@ -155,9 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            validator: (input) => input.trim().isEmpty
-                                ? 'Please Enter a valied password'
-                                : null,
+                            validator: (input) => input.trim().isEmpty ? 'Please Enter a valied password' : null,
                             //onSaved: (input) => _password = input.trim(),
 
                             onSaved: (input) => _password = input.trim(),
@@ -174,30 +167,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 200.0,
                           child: RaisedButton(
                             color: Colors.tealAccent[700],
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
                             onPressed: () async {
                               try {
                                 if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
-                                  await AuthService.login(
-                                          context: context,
-                                          email: _email,
-                                          password: _password)
-                                      .then((value) {
-                                    if (value != null) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) => AddUserScreen()));
-                                    } else {
-                                      setState(() => error =
-                                          'Could not SIGN IN with those credential');
-                                    }
-                                  });
+                                  bool result =
+                                      await AuthService.login(context: context, email: _email, password: _password);
+                                  if (result) {
+                                    Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserScreen()));
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(content: Text('Something went wrong')));
+                                  }
                                 }
                               } catch (e) {
-                                print(e);
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+                                print('Login >   $e');
                               }
                             },
                             child: Text(
@@ -236,10 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => RegisterScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => RegisterScreen()));
                           },
                         ),
                       ],

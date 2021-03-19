@@ -88,7 +88,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                 
                 ),
               ),
               SizedBox(
@@ -132,7 +131,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                  
                 ),
               ),
               SizedBox(
@@ -151,7 +149,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
-                        color:  Colors.teal[900],
+                        color: Colors.teal[900],
                       ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
@@ -176,7 +174,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                  
                 ),
               ),
               SizedBox(
@@ -195,7 +192,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
-                        color:  Colors.teal[900],
+                        color: Colors.teal[900],
                       ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
@@ -220,7 +217,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                 
                 ),
               ),
               SizedBox(
@@ -231,27 +227,29 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 width: 200.0,
                 child: RaisedButton(
                   color: Colors.tealAccent,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
                   onPressed: () async {
+                    if (firstNameController.text.trim() != '' &&
+                        lastNameController.text.trim() != '' &&
+                        phoneController.text.trim() != '' &&
+                        addressController.text.trim() != '') {
+                      ContactModel createdRelativesdetails = ContactModel(
+                        firstname: firstNameController.text.trim(),
+                        lastname: lastNameController.text.trim(),
+                        phone: phoneController.text.trim(),
+                        address: addressController.text.trim(),
+                      );
+                      //TODO: check relative count
 
-                      if (firstNameController.text.trim() != '' &&
-                          lastNameController.text.trim() != '' &&
-                          phoneController.text.trim() != '' &&
-                          addressController.text.trim() != '') {
-                        ContactModel createdRelativesdetails = ContactModel(
-                          firstname: firstNameController.text.trim(),
-                          lastname: lastNameController.text.trim(),
-                          phone: phoneController.text.trim(),
-                          address: addressController.text.trim(),
-                        );
-                        FirebaseService.createRlativesDetails(
-                            createdRelativesdetails);
-                        // Navigator.pop(context, createdRelativesdetails);
-                        _messageAddedDailog(createdRelativesdetails);
-                      } else {
-                        print('cant add...');
-                      }                    
+                      //count is 3 > show error message
+
+                      //else add relative
+                      FirebaseService.createRlativesDetails(createdRelativesdetails);
+                      // Navigator.pop(context, createdRelativesdetails);
+                      _messageAddedDailog(createdRelativesdetails);
+                    } else {
+                      print('cant add...');
+                    }
                   },
                   child: Text(
                     'Add',
@@ -270,7 +268,6 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
           ),
         ),
       )),
-      
     );
   }
 

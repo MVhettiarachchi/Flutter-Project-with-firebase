@@ -8,11 +8,7 @@ import 'package:flutter/services.dart';
 class AuthService {
   // ignore: missing_return
   static Future<bool> signUpUser(
-      {String firstName,
-      String lastName,
-      String phone,
-      String email,
-      String password}) async {
+      {String firstName, String lastName, String phone, String email, String password}) async {
     final _firestore = FirebaseFirestore.instance;
     final _auth = FirebaseAuth.instance;
     try {
@@ -48,14 +44,10 @@ class AuthService {
     }
   }
 
- 
-  static Future<bool> login(
-      {BuildContext context, String email, String password}) async {
+  static Future<bool> login({BuildContext context, String email, String password}) async {
     final _auth = FirebaseAuth.instance;
-    final _firestore = FirebaseFirestore.instance;
     try {
-      UserCredential authResult = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+      UserCredential authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User user = authResult.user;
       if (user != null) {
         return true;
@@ -73,12 +65,10 @@ class AuthService {
   }
 
   static Future<UserModel> getUserById(String id) async {
-    
     try {
       print(id);
       final _firestore = FirebaseFirestore.instance;
-      DocumentSnapshot documentSnapshot =
-          await _firestore.collection('users').doc(id).get();
+      DocumentSnapshot documentSnapshot = await _firestore.collection('users').doc(id).get();
 
       return null;
     } catch (e) {

@@ -59,10 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text(message),
-          content: Container(
-              width: 150.0,
-              height: 80.0,
-              child: Center(child: CircularProgressIndicator())),
+          content: Container(width: 150.0, height: 80.0, child: Center(child: CircularProgressIndicator())),
         );
       },
     );
@@ -144,9 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty
-                                  ? 'Please Enter a valied name'
-                                  : null,
+                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied name' : null,
                               onSaved: (input) => _firstName = input.trim(),
                             ),
                           ),
@@ -190,9 +185,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty
-                                  ? 'Please Enter a valied name'
-                                  : null,
+                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied name' : null,
                               onSaved: (input) => _lastName = input.trim(),
                             ),
                           ),
@@ -236,9 +229,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty
-                                  ? 'Please Enter a valied phone number'
-                                  : null,
+                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied phone number' : null,
                               onSaved: (input) => _phone = input.trim(),
                             ),
                           ),
@@ -282,9 +273,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty
-                                  ? 'Please Enter a valied email'
-                                  : null,
+                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied email' : null,
                               onSaved: (input) => _email = input.trim(),
                               onChanged: (input) => _email = input.trim(),
                             ),
@@ -330,9 +319,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              validator: (input) => input.trim().isEmpty
-                                  ? 'Please Enter a valied password'
-                                  : null,
+                              validator: (input) => input.trim().isEmpty ? 'Please Enter a valied password' : null,
                               onSaved: (input) => _password = input.trim(),
                               onChanged: (input) => _password = input.trim(),
                             ),
@@ -387,10 +374,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   return null;
                                 }
                               },
-                              onSaved: (input) =>
-                                  _confirmPassword = input.trim(),
-                              onChanged: (input) =>
-                                  _confirmPassword = input.trim(),
+                              onSaved: (input) => _confirmPassword = input.trim(),
+                              onChanged: (input) => _confirmPassword = input.trim(),
                             ),
                           ),
                           SizedBox(
@@ -401,8 +386,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             width: 200.0,
                             child: RaisedButton(
                               color: Colors.tealAccent,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
                               //     try {
                               //   if (_formKey.currentState.validate()) {
                               //     _formKey.currentState.save();
@@ -426,12 +410,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               //   print(e);
                               // }
                               onPressed: () async {
-                               // try{}
+                                // try{}
                                 if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
                                   _showDailogLoadin('Enter the valid details');
                                   _isLoading = true;
 
+                                  //TODO: error handling
                                   AuthService.signUpUser(
                                     firstName: _firstName,
                                     lastName: _lastName,
@@ -441,15 +426,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     //          address: _address,
                                   ).then((value) {
                                     _isLoading = false;
-                                   // Navigator.pop(context);
-                                   // if (value) {
-                                       Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => AddUserScreen()));
-                                    }
-                                  //}
-                                  );
+                                    // Navigator.pop(context);
+                                    // if (value) {
+                                    Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserScreen()));
+                                  }
+                                      //}
+                                      );
                                 }
                               },
                               child: Text(
@@ -481,7 +463,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   'Login.',
                                   style: TextStyle(
                                     color: Colors.tealAccent[700],
-                                    
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
