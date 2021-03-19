@@ -7,12 +7,15 @@ class ContactModel {
   final String lastname;
   final String phone;
   final String address;
+  final String ownerID;
 
-  ContactModel({ this.id,
+  ContactModel({ 
+  this.id,
   this.firstname,
   this.lastname,
   this.address,
   this.phone,
+  this.ownerID,
   });
 
   factory ContactModel.fromDoc(DocumentSnapshot doc) {
@@ -23,6 +26,7 @@ class ContactModel {
     lastname: doc['lastname'],
     address: doc['address'],
     phone: doc['phone'],
+    ownerID: doc['ownerID'],
    
     );
   }

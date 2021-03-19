@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
-                                  color: Colors.yellow[700],
+                                  color: Colors.tealAccent[700],
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
-                                  color: Colors.yellow[700],
+                                  color: Colors.tealAccent[700],
                                 ),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
@@ -173,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 50.0,
                           width: 200.0,
                           child: RaisedButton(
-                            color: Colors.yellow[700],
+                            color: Colors.tealAccent[700],
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0)),
                             onPressed: () async {
@@ -228,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Text(
                                 'Create Account',
                                 style: TextStyle(
-                                  color: Colors.yellow[700],
+                                  color: Colors.tealAccent[700],
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
                                 ),

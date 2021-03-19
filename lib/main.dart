@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'DgMentor Mujer',
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.teal,
       ),
       home: SpalshScreen(),
       //  home: HomeScreen(),

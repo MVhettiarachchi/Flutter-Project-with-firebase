@@ -90,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Text(
                     'Register',
                     style: TextStyle(
-                      color: Colors.yellow[700],
+                      color: Colors.tealAccent[700],
                       fontSize: 36.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -119,7 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.yellow[700],
+                                    color: Colors.tealAccent[700],
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -165,7 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.yellow[700],
+                                    color: Colors.tealAccent[700],
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -211,7 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.yellow[700],
+                                    color: Colors.tealAccent[700],
                                   ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
@@ -257,7 +257,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.yellow[700],
+                                    color: Colors.tealAccent[700],
                                   ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
@@ -305,7 +305,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.yellow[700],
+                                    color: Colors.tealAccent[700],
                                   ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
@@ -353,7 +353,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   borderSide: BorderSide(
-                                    color: Colors.yellow[700],
+                                    color: Colors.tealAccent[700],
                                   ),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
@@ -400,7 +400,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: 50.0,
                             width: 200.0,
                             child: RaisedButton(
-                              color: Colors.yellow[700],
+                              color: Colors.tealAccent,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0)),
                               //     try {
@@ -480,7 +480,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Text(
                                   'Login.',
                                   style: TextStyle(
-                                    color: Colors.yellow[700],
+                                    color: Colors.tealAccent[700],
+                                    
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),

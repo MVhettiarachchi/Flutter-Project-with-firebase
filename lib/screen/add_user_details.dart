@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dgmentor_mujer_user/model/contact_model.dart';
 import 'package:dgmentor_mujer_user/services/firebase_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AddUserDetailsScreen extends StatefulWidget {
@@ -40,7 +42,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
               Text(
                 'Add details',
                 style: TextStyle(
-                  color: Colors.yellow[700],
+                  color: Colors.black,
                   fontSize: 36.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -61,7 +63,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
-                        color: Colors.yellow[700],
+                        color: Colors.teal[900],
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
@@ -86,10 +88,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                  // validator: (input) => input.trim().isEmpty
-                  //     ? 'Please Enter a valied name'
-                  //     : null,
-                  // onSaved: (input) => _firstName = input.trim(),
+                 
                 ),
               ),
               SizedBox(
@@ -108,7 +107,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
-                        color: Colors.yellow[700],
+                        color: Colors.teal[900],
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
@@ -133,10 +132,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                  // validator: (input) => input.trim().isEmpty
-                  //     ? 'Please Enter a valied name'
-                  //     : null,
-                  // onSaved: (input) => _lastName = input.trim(),
+                  
                 ),
               ),
               SizedBox(
@@ -155,7 +151,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
-                        color: Colors.yellow[700],
+                        color:  Colors.teal[900],
                       ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
@@ -180,10 +176,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                  // validator: (input) => input.trim().isEmpty
-                  //     ? 'Please Enter a valied phone number'
-                  //     : null,
-                  // onSaved: (input) => _phone = input.trim(),
+                  
                 ),
               ),
               SizedBox(
@@ -202,7 +195,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
-                        color: Colors.yellow[700],
+                        color:  Colors.teal[900],
                       ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
@@ -227,10 +220,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
-                  // validator: (input) => input.trim().isEmpty
-                  //     ? 'Please Enter a valied phone number'
-                  //     : null,
-                  // onSaved: (input) => _phone = input.trim(),
+                 
                 ),
               ),
               SizedBox(
@@ -240,32 +230,33 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 height: 50.0,
                 width: 200.0,
                 child: RaisedButton(
-                  color: Colors.yellow[700],
+                  color: Colors.tealAccent,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0)),
-                  onPressed: () {
-                    if (firstNameController.text.trim() != '' &&
-                        lastNameController.text.trim() != '' &&
-                        phoneController.text.trim() != '' &&
-                        addressController.text.trim() != '') {
-                      ContactModel createdRelativesdetails = ContactModel(
-                        firstname: firstNameController.text.trim(),
-                        lastname: lastNameController.text.trim(),
-                        phone: phoneController.text.trim(),
-                        address: addressController.text.trim(),
-                      );
-                      FirebaseService.createRlativesDetails(
-                          createdRelativesdetails);
-                      // Navigator.pop(context, createdRelativesdetails);
-                      _messageAddedDailog(createdRelativesdetails);
-                    } else {
-                      print('cant add...');
-                    }
+                  onPressed: () async {
+
+                      if (firstNameController.text.trim() != '' &&
+                          lastNameController.text.trim() != '' &&
+                          phoneController.text.trim() != '' &&
+                          addressController.text.trim() != '') {
+                        ContactModel createdRelativesdetails = ContactModel(
+                          firstname: firstNameController.text.trim(),
+                          lastname: lastNameController.text.trim(),
+                          phone: phoneController.text.trim(),
+                          address: addressController.text.trim(),
+                        );
+                        FirebaseService.createRlativesDetails(
+                            createdRelativesdetails);
+                        // Navigator.pop(context, createdRelativesdetails);
+                        _messageAddedDailog(createdRelativesdetails);
+                      } else {
+                        print('cant add...');
+                      }                    
                   },
                   child: Text(
                     'Add',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -279,36 +270,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
           ),
         ),
       )),
-      // drawer: Drawer(
-      //   child: ListView(
-      //     // Important: Remove any padding from the ListView.
-      //     padding: EdgeInsets.zero,
-      //     children: <Widget>[
-      //       DrawerHeader(
-      //         child: Text('Drawer Header'),
-      //         decoration: BoxDecoration(
-      //           color: Colors.yellow[700],
-      //         ),
-      //       ),
-      //       ListTile(
-      //         title: Text('Contacts'),
-      //         onTap: () {
-      //           Navigator.push(context,
-      //               MaterialPageRoute(builder: (_) => AddUserScreen()));
-      //         },
-      //       ),
-      //       ListTile(
-      //         title: Text('Item 2'),
-      //         onTap: () {
-      //           // Update the state of the app
-      //           // ...
-      //           // Then close the drawer
-      //           Navigator.pop(context);
-      //         },
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      
     );
   }
 

@@ -73,6 +73,7 @@ class AuthService {
   }
 
   static Future<UserModel> getUserById(String id) async {
+    
     try {
       print(id);
       final _firestore = FirebaseFirestore.instance;
