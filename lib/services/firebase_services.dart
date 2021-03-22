@@ -43,6 +43,7 @@ class FirebaseService {
 
     QuerySnapshot respectsQuery = await _firestore.collection('relatives').where("ownerID", isEqualTo: uid).get();
     return respectsQuery.size;
+
   }
 
   // static Future<List<ContactModel>>  getUserDetails(String ownerID) async {

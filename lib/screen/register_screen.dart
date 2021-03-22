@@ -411,7 +411,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               // }
                               onPressed: () async {
                                 // try{}
-                                if (_formKey.currentState.validate()) {
+                                try{
+                                       if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
                                   _showDailogLoadin('Enter the valid details');
                                   _isLoading = true;
@@ -433,6 +434,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       //}
                                       );
                                 }
+                                }
+
+                                catch (e) {
+                                Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+                                print('Login >   $e');
+                              }
+                               
                               },
                               child: Text(
                                 'Register',

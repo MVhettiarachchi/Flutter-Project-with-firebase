@@ -88,6 +88,9 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
+                  validator: (input) => input.trim().isEmpty
+                      ? 'Please Enter a valied name'
+                      : null,
                 ),
               ),
               SizedBox(
@@ -131,6 +134,9 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
+                  validator: (input) => input.trim().isEmpty
+                      ? 'Please Enter a valied name'
+                      : null,
                 ),
               ),
               SizedBox(
@@ -174,6 +180,9 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
+                  validator: (input) => input.trim().isEmpty
+                      ? 'Please Enter a phone number'
+                      : null,
                 ),
               ),
               SizedBox(
@@ -217,6 +226,9 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                       ),
                     ),
                   ),
+                  validator: (input) => input.trim().isEmpty
+                      ? 'Please Enter a valied name'
+                      : null,
                 ),
               ),
               SizedBox(
@@ -227,28 +239,41 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                 width: 200.0,
                 child: RaisedButton(
                   color: Colors.tealAccent,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0)),
                   onPressed: () async {
-                    if (firstNameController.text.trim() != '' &&
-                        lastNameController.text.trim() != '' &&
-                        phoneController.text.trim() != '' &&
-                        addressController.text.trim() != '') {
-                      ContactModel createdRelativesdetails = ContactModel(
-                        firstname: firstNameController.text.trim(),
-                        lastname: lastNameController.text.trim(),
-                        phone: phoneController.text.trim(),
-                        address: addressController.text.trim(),
-                      );
-                      //TODO: check relative count
-
-                      //count is 3 > show error message
-
-                      //else add relative
-                      FirebaseService.createRlativesDetails(createdRelativesdetails);
-                      // Navigator.pop(context, createdRelativesdetails);
-                      _messageAddedDailog(createdRelativesdetails);
-                    } else {
-                      print('cant add...');
+                    try {
+                      if (firstNameController.text.trim() != '' &&
+                          lastNameController.text.trim() != '' &&
+                          phoneController.text.trim() != '' &&
+                          addressController.text.trim() != '') {
+                        ContactModel createdRelativesdetails = ContactModel(
+                          firstname: firstNameController.text.trim(),
+                          lastname: lastNameController.text.trim(),
+                          phone: phoneController.text.trim(),
+                          address: addressController.text.trim(),
+                        );
+                        
+                        int result = await FirebaseService.getRelativesCount();
+                       // print('Login >   $result');
+                        if (result > 3) {
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: const Text('Something went wrong'),
+                            duration: const Duration(seconds: 2),
+                          )); 
+                        } else {
+                          FirebaseService.createRlativesDetails(
+                              createdRelativesdetails);
+                          // Navigator.pop(context, createdRelativesdetails);
+                          _messageAddedDailog(createdRelativesdetails);
+                        }
+                      } else {
+                        print('cant add...');
+                      }
+                    } catch (e) {
+                      Scaffold.of(context)
+                          .showSnackBar(SnackBar(content: Text(e.message)));
+                      print('Login >   $e');
                     }
                   },
                   child: Text(
