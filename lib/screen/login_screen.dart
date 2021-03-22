@@ -13,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   String _email = '';
   String _password = '';
@@ -30,10 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text(message),
-          content: Container(
-              width: 150.0,
-              height: 80.0,
-              child: Center(child: CircularProgressIndicator())),
+          content: Container(width: 150.0, height: 80.0, child: Center(child: CircularProgressIndicator())),
         );
       },
     );
@@ -44,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
@@ -108,9 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            validator: (input) => input.trim().isEmpty
-                                ? 'Please Enter a valied user name'
-                                : null,
+                            validator: (input) => input.trim().isEmpty ? 'Please Enter a valied user name' : null,
                             onSaved: (input) => _email = input.trim(),
                           ),
                         ),
@@ -155,9 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            validator: (input) => input.trim().isEmpty
-                                ? 'Please Enter a valied password'
-                                : null,
+                            validator: (input) => input.trim().isEmpty ? 'Please Enter a valied password' : null,
                             //onSaved: (input) => _password = input.trim(),
 
                             onSaved: (input) => _password = input.trim(),
@@ -174,31 +169,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 200.0,
                           child: RaisedButton(
                             color: Colors.tealAccent[700],
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
                             onPressed: () async {
                               try {
                                 if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
-                                  bool result = await AuthService.login(
-                                      context: context,
-                                      email: _email,
-                                      password: _password);
+                                  bool result =
+                                      await AuthService.login(context: context, email: _email, password: _password);
                                   if (result) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => AddUserScreen()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserScreen()));
                                   } else {
-                                    Scaffold.of(context).showSnackBar(SnackBar(
-                                        content:
-                                            const Text('Something went wrong'),
+                                    scaffoldKey.currentState.showSnackBar(SnackBar(
+                                        content: const Text('Something went wrong'),
                                         duration: const Duration(seconds: 2)));
                                   }
                                 }
                               } catch (e) {
-                                Scaffold.of(context).showSnackBar(
-                                    SnackBar(content: Text(e.message)));
+                                scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(e.message)));
                                 print('Login >   $e');
                               }
                             },
@@ -238,10 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => RegisterScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => RegisterScreen()));
                           },
                         ),
                       ],

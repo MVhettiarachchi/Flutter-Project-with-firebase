@@ -13,10 +13,10 @@ class AddUserScreen extends StatefulWidget {
 }
 
 class _AddUserScreenState extends State<AddUserScreen> {
-
 // List<ContactModel> _usersList = FirebaseService.getUserDetails("0") as List<ContactModel>;
-FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  bool _checkingRelativeCount = false;
 
 // Widget projectWidget() {
 //   return FutureBuilder(
@@ -39,7 +39,7 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
 //                     ],
 //                 ),
 //                 );
-          
+
 //         },
 //       );
 //     },
@@ -49,7 +49,6 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
-
     // Future<List<ContactModel>> _usersList = FirebaseService.getUserDetails("0");
     final _auth = FirebaseAuth.instance.currentUser;
     final String uid = _auth.uid.toString();
@@ -57,6 +56,7 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text('DgmentorMujer'),
         actions: [
@@ -67,7 +67,6 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
           ),
         ],
       ),
-
       backgroundColor: Colors.white,
       body: SafeArea(
           child: SingleChildScrollView(
@@ -98,60 +97,69 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
                 width: 200.0,
                 child: RaisedButton(
                   color: Colors.tealAccent,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0)),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => AddUserDetailsScreen()));
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
+                  onPressed: () async {
+                    setState(() {
+                      _checkingRelativeCount = true;
+                    });
+                    final int relativeCount = await FirebaseService.getRelativesCount();
+                    setState(() {
+                      _checkingRelativeCount = false;
+                    });
+
+                    if (relativeCount <= 2) {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserDetailsScreen()));
+                    } else {
+                      //TODO: show can not added message
+                      scaffoldKey.currentState.showSnackBar(SnackBar(
+                        content: const Text('Max 3'),
+                      ));
+                    }
                   },
-                  child: Text(
-                    'Add users',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: _checkingRelativeCount
+                      ? CircularProgressIndicator()
+                      : Text(
+                          'Add users',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
               ),
               SizedBox(
                 height: 30.0,
               ),
-               Row(
-              children: [
-                
-                SizedBox(
-                  width: 10,
-                ),
-               
-               SizedBox(
-                  width: 10,
-                
-                ),
-                Expanded(
-                  child: Container(
-                    height: 40.0,
-                    width: 4.0,                  
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.purple[200],
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Name',
-                        style: TextStyle(fontSize: 22.0, color: Colors.white),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 40.0,
+                      width: 4.0,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        color: Colors.purple[200],
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Name',
+                          style: TextStyle(fontSize: 22.0, color: Colors.white),
+                        ),
                       ),
                     ),
-                    
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 18,
-            ),
+                ],
+              ),
+              SizedBox(
+                height: 18,
+              ),
 
               //   ListView.builder(
               //   padding: const EdgeInsets.all(8),
@@ -168,106 +176,102 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
               // projectWidget(),
 
               StreamBuilder(
-                stream: _firestore.collection('relatives').where('ownerID', isEqualTo: uid).snapshots(),
-                builder: (context,AsyncSnapshot<QuerySnapshot> snapshots){
-                  if (snapshots.hasData) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshots.data.docs.length,
-                      itemBuilder: (context, index){
-                        // DocumentSnapshot docsnap = snapshots.data.documents[index];
-                      List<QueryDocumentSnapshot> docsnap = snapshots.data.docs;
+                  stream: _firestore.collection('relatives').where('ownerID', isEqualTo: uid).snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshots) {
+                    if (snapshots.hasData) {
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshots.data.docs.length,
+                          itemBuilder: (context, index) {
+                            // DocumentSnapshot docsnap = snapshots.data.documents[index];
+                            List<QueryDocumentSnapshot> docsnap = snapshots.data.docs;
 
-                        return Row(
-                          children: <Widget>[
-                            // Expanded(
-                            //    child: Text(index.toString(),style: TextStyle(fontSize: 22.0, color: Colors.black)),
-                            // ),
-                            Expanded(child: Text(docsnap[index]['firstname'],style: TextStyle(fontSize: 22.0, color: Colors.black)),
-                      
-                       ),
-                          ],
-                        );
-                      }
+                            return Row(
+                              children: <Widget>[
+                                // Expanded(
+                                //    child: Text(index.toString(),style: TextStyle(fontSize: 22.0, color: Colors.black)),
+                                // ),
+                                Expanded(
+                                  child: Text(docsnap[index]['firstname'],
+                                      style: TextStyle(fontSize: 22.0, color: Colors.black)),
+                                ),
+                              ],
+                            );
+                          });
+                    } else {
+                      return Align(
+                        alignment: FractionalOffset.bottomCenter,
+                        child: CircularProgressIndicator(),
                       );
-                  }else{
-                    return Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                }
-              )
+                    }
+                  })
 
-            // FutureBuilder<List<ContactModel>>(
-            //   future: FirebaseService.getUserDetails("0"),
-            //   builder: (context, snapshot) {
-            //       if (snapshot.hasData) {
-                    
-            //       }
-            //       return CircularProgressIndicator();
-            //     },
+              // FutureBuilder<List<ContactModel>>(
+              //   future: FirebaseService.getUserDetails("0"),
+              //   builder: (context, snapshot) {
+              //       if (snapshot.hasData) {
 
-            // )
+              //       }
+              //       return CircularProgressIndicator();
+              //     },
 
+              // )
 
-            // ListView.builder(
-              
-            //   shrinkWrap: true,
-            //   // itemCount:  FirebaseService.getUserDetails("0").,
-            //   itemBuilder: (context, index) {
-            //     return Padding(
-            //       padding: const EdgeInsets.symmetric(vertical: 5.0),
-            //       child: Row(
-            //         children: [
-            //           Expanded(
-            //             child: Container(
-            //               height: 32.0,
-            //               child: Center(
-            //                 child: ListTile(
-            //                   title: Text(
-            //                     index.toString(),
-            //                     style: TextStyle(
-            //                       fontSize: 20.0,
-            //                       color: Colors.black,
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //           SizedBox(
-            //             width: 10,
-            //           ),
-                      
-            //           Expanded(
-            //             child: Container(
-            //               height: 32.0,
-            //               decoration: BoxDecoration(
-            //                 border: Border.all(color: Colors.black),
-            //                 color: Color(0xFFCDCDCD),
-            //               ),
-            //               child: Center(
-            //                 child: Text(
-            //                   _usersList[index].firstname,
-            //                   overflow: TextOverflow.ellipsis,
-            //                   style: TextStyle(
-            //                       fontSize: 20.0, color: Colors.black),
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     );
-            //   },
-            // ),
+              // ListView.builder(
+
+              //   shrinkWrap: true,
+              //   // itemCount:  FirebaseService.getUserDetails("0").,
+              //   itemBuilder: (context, index) {
+              //     return Padding(
+              //       padding: const EdgeInsets.symmetric(vertical: 5.0),
+              //       child: Row(
+              //         children: [
+              //           Expanded(
+              //             child: Container(
+              //               height: 32.0,
+              //               child: Center(
+              //                 child: ListTile(
+              //                   title: Text(
+              //                     index.toString(),
+              //                     style: TextStyle(
+              //                       fontSize: 20.0,
+              //                       color: Colors.black,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //           SizedBox(
+              //             width: 10,
+              //           ),
+
+              //           Expanded(
+              //             child: Container(
+              //               height: 32.0,
+              //               decoration: BoxDecoration(
+              //                 border: Border.all(color: Colors.black),
+              //                 color: Color(0xFFCDCDCD),
+              //               ),
+              //               child: Center(
+              //                 child: Text(
+              //                   _usersList[index].firstname,
+              //                   overflow: TextOverflow.ellipsis,
+              //                   style: TextStyle(
+              //                       fontSize: 20.0, color: Colors.black),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     );
+              //   },
+              // ),
             ],
           ),
         ),
-      )
-      
-      ),
+      )),
     );
   }
 
@@ -288,8 +292,7 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
                 Navigator.of(context).pop();
                 AuthService.signOut();
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                    (Route<dynamic> route) => false);
+                    MaterialPageRoute(builder: (context) => LoginScreen()), (Route<dynamic> route) => false);
               },
             ),
             new FlatButton(
