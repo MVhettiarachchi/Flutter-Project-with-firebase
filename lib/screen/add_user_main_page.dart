@@ -109,11 +109,13 @@ class _AddUserScreenState extends State<AddUserScreen> {
 
                     if (relativeCount <= 2) {
                       Navigator.push(context, MaterialPageRoute(builder: (_) => AddUserDetailsScreen()));
+                       scaffoldKey.currentState.showSnackBar(SnackBar(
+                                        content: const Text('loading....'),
+                                        duration: const Duration(seconds: 2)));
                     } else {
-                      //TODO: show can not added message
-                      scaffoldKey.currentState.showSnackBar(SnackBar(
-                        content: const Text('Max 3'),
-                      ));
+                       scaffoldKey.currentState.showSnackBar(SnackBar(
+                                        content: const Text('The maximum users are already added'),
+                                        duration: const Duration(seconds: 2)));
                     }
                   },
                   child: _checkingRelativeCount

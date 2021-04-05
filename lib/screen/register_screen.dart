@@ -14,6 +14,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   String _firstName = '';
   String _lastName = '';
@@ -70,6 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -437,8 +439,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
 
                                 catch (e) {
-                                Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.message)));
-                                print('Login >   $e');
+                                scaffoldKey.currentState.showSnackBar(SnackBar(
+                                        content: const Text('Something went wrong'),
+                                        duration: const Duration(seconds: 2)));
                               }
                                
                               },

@@ -18,12 +18,13 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
   String _lastName = '';
 
   String _phone = '';
-
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(title: Text('DgmentorMujer')),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -253,27 +254,27 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                           phone: phoneController.text.trim(),
                           address: addressController.text.trim(),
                         );
-                        
-                        int result = await FirebaseService.getRelativesCount();
-                       // print('Login >   $result');
-                        if (result > 3) {
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                            content: const Text('Something went wrong'),
-                            duration: const Duration(seconds: 2),
-                          )); 
-                        } else {
-                          FirebaseService.createRlativesDetails(
-                              createdRelativesdetails);
-                          // Navigator.pop(context, createdRelativesdetails);
-                          _messageAddedDailog(createdRelativesdetails);
-                        }
-                      } else {
-                        print('cant add...');
+
+                        //   int result = await FirebaseService.getRelativesCount();
+                        //  // print('Login >   $result');
+                        //   if (result > 3) {
+                        //      Scaffold.of(context).showSnackBar(SnackBar(
+                        //       content: const Text('Something went wrong'),
+                        //       duration: const Duration(seconds: 2),
+                        //     ));
+                        //   } else {
+                        FirebaseService.createRlativesDetails(
+                            createdRelativesdetails);
+                        // Navigator.pop(context, createdRelativesdetails);
+                        _messageAddedDailog(createdRelativesdetails);
                       }
+                      // } else {
+                      //   print('cant add...');
+                      // }
                     } catch (e) {
-                      Scaffold.of(context)
-                          .showSnackBar(SnackBar(content: Text(e.message)));
-                      print('Login >   $e');
+                      scaffoldKey.currentState.showSnackBar(SnackBar(
+                          content: const Text('Something went wrong'),
+                          duration: const Duration(seconds: 2)));
                     }
                   },
                   child: Text(
