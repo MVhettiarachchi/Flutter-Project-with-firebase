@@ -306,7 +306,7 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
           title: Text("Successfully."),
           content: Text('Successfully'),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
+            // usually b2uttons at the bottom of the dialog
             FlatButton(
               child: Text("Ok"),
               onPressed: () {
